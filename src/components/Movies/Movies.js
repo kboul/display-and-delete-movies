@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { getMovies } from '../../services/fakeMovieService';
+import './Movies.css';
 
 export default class Movies extends Component {
     state = {
@@ -22,6 +23,7 @@ export default class Movies extends Component {
                     <th scope="col">Stock</th>
                     <th scope="col">Range</th>
                     <th></th>
+                    <th></th>
                 </tr>
             </thead>
         )
@@ -36,7 +38,7 @@ export default class Movies extends Component {
                     {this.state.movies.map(movie => {
                         return (
                             <tbody key={movie._id}>
-                                <tr >
+                                <tr>
                                     <td>{movie.title}</td>        
                                     <td>{movie.genre.name}</td>   
                                     <td>{movie.numberInStock}</td> 
