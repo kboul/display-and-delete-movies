@@ -3,6 +3,7 @@ import { getMovies } from '../../services/fakeMovieService';
 import './Movies.css';
 import Like from '../Like/Like';
 import Pagination from '../Pagination/Pagination';
+import { paginate } from '../../utils/paginate';
 
 export default class Movies extends Component {
     state = {
@@ -47,14 +48,16 @@ export default class Movies extends Component {
 
     renderMovies = () => {
         const { length: count } = this.state.movies;
-        const { pageSize, currentPage } = this.state;
+        const { pageSize, currentPage, movies: allMovies } = this.state;
+
+        const movies = paginate(allMovies, currentPage, pageSize);
 
         return (
             <div>
                 <p>{this.displayMoviesNumber()}</p>
                 <table className="table">
                     {this.renderTableHeader()}
-                    {this.state.movies.map(movie => {
+                    {movies.map(movie => {
                         return (
                             <tbody key={movie._id}>
                                 <tr>
