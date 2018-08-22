@@ -1,8 +1,9 @@
 import React from 'react'
 import _ from 'lodash'; // optimized underscore library
+import PropTypes from 'prop-types'; 
 
-export default (props) => {
-    const { itemsCount, pageSize, currentPage,  onPageChange } = props;
+const Pagination = props => {
+    const { itemsCount, pageSize, currentPage, onPageChange } = props;
 
     // calculate required pagination numbers
     const pagesCount = Math.ceil(itemsCount / pageSize);
@@ -31,3 +32,12 @@ export default (props) => {
         </nav>
     )
 }
+
+Pagination.propTypes = {
+    itemsCount: PropTypes.number.isRequired,
+    pageSize: PropTypes.number.isRequired,
+    currentPage: PropTypes.number.isRequired,
+    onPageChange: PropTypes.func.isRequired
+};
+
+export default Pagination;
