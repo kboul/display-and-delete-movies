@@ -15,7 +15,8 @@ export default class Movies extends Component {
         movies: [],
         pageSize: 4,
         currentPage: 1,
-        genres: []
+        genres: [],
+        selectedGenre: {}
     }
 
     componentDidMount() {
@@ -59,9 +60,17 @@ export default class Movies extends Component {
         this.setState({ currentPage: page });
     }
 
+    handleFilterItem = genre => {
+        this.setState({ selectedGenre: genre });
+    }
+
     renderMovies = () => {
         const { length: count } = this.state.movies;
-        const { pageSize, currentPage, movies: allMovies, genres } = this.state;
+        const { 
+            pageSize, 
+            currentPage, 
+            movies: allMovies, 
+            genres, selectedGenre } = this.state;
 
         const movies = paginate(allMovies, currentPage, pageSize);
 
@@ -69,7 +78,10 @@ export default class Movies extends Component {
             <div className="container">
 				<div className="row">
 					<div className="col-3">
-                        <ListGroup genres={genres} />
+                        <ListGroup 
+                            genres={genres} 
+                            filteredItem={selectedGenre}
+                            onFilterItem={this.handleFilterItem} />
 					</div>
                     <div className="col-9">
                         <p>{this.displayMoviesNumber()}</p>

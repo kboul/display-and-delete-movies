@@ -2,16 +2,24 @@ import React from 'react';
 import './ListGroup.css';
 
 const ListGroup = props => {
-    const { genres, valueProperty, textProperty } = props;
+    const { 
+        genres, 
+        valueProperty, 
+        textProperty, 
+        onFilterItem, 
+        filteredItem } = props;
 
     return (  
         <ul className="list-group">
-            {genres.map(g => {
+            {genres.map(genre => {
                 return (
                     <li 
-                        key={g[valueProperty]}
-                        className="list-group-item">
-                        {g[textProperty]}
+                        key={genre[valueProperty]}
+                        className={
+                            filteredItem.name === genre[textProperty] ? 'list-group-item active' : 'list-group-item'
+                        }
+                        onClick={() => { onFilterItem(genre) } }>
+                        {genre[textProperty]}
                     </li>
                 )
             })}
