@@ -1,4 +1,5 @@
 import React from 'react';
+import './ListGroup.css';
 
 const ListGroup = props => {
     const { genres, valueProperty, textProperty } = props;
