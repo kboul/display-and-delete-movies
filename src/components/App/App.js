@@ -5,9 +5,7 @@ import Movies from '../Movies/Movies';
 class App extends Component {
 	render() {
 		return (
-			<div className="container">
-				<Movies />
-			</div>
+			<Movies />
 		)
 	}
 }
