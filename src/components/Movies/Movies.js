@@ -7,7 +7,8 @@ import Pagination from '../Pagination/Pagination';
 export default class Movies extends Component {
     state = {
         movies: getMovies(),
-        pageSize: 4
+        pageSize: 4,
+        currentPage: 1
     }
 
     handleDeleteMovie = movie => {
@@ -41,10 +42,13 @@ export default class Movies extends Component {
     }
 
     handlePageChange = page => {
-        console.log(page);
+        this.setState({ currentPage: page });
     }
 
     renderMovies = () => {
+        const { length: count } = this.state.movies;
+        const { pageSize, currentPage } = this.state;
+
         return (
             <div>
                 <p>{this.displayMoviesNumber()}</p>
@@ -76,8 +80,9 @@ export default class Movies extends Component {
                     })}
                 </table>
                 <Pagination 
-                    itemsCount={this.state.movies.length} 
-                    pageSize={this.state.pageSize} 
+                    itemsCount={count} 
+                    pageSize={pageSize} 
+                    currentPage={currentPage}
                     onPageChange={this.handlePageChange} />
             </div>
         )

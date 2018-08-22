@@ -2,7 +2,7 @@ import React from 'react'
 import _ from 'lodash'; // optimized underscore library
 
 export default (props) => {
-    const { itemsCount, pageSize } = props;
+    const { itemsCount, pageSize, currentPage,  onPageChange } = props;
 
     // calculate required pagination numbers
     const pagesCount = Math.ceil(itemsCount / pageSize);
@@ -12,16 +12,22 @@ export default (props) => {
     const pages = _.range(1, pagesCount + 1);
 
     return (
-       <nav>
+        <nav>
             <ul className="pagination justify-content-center">
                 {pages.map(page => {
                     return (
-                        <li key={page} className="page-item">
-                            <a className="page-link">{page}</a> 
+                        <li 
+                            key={page} 
+                            className={ (page !== currentPage) ? "page-item" : "page-item active"}>
+                            <a 
+                                className="page-link" 
+                                onClick={() => { onPageChange(page)} }>
+                                {page}
+                            </a> 
                         </li>
                     )
                 })}
             </ul>
-       </nav>
+        </nav>
     )
 }
