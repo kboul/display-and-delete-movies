@@ -16,14 +16,13 @@ export default class Movies extends Component {
         pageSize: 4,
         currentPage: 1,
         genres: [],
-        selectedGenre: {}
+        filteredGenre: { name: "All Genres" }
     }
 
     componentDidMount() {
-        this.setState({
-            movies: getMovies(),
-            genres: getGenres()
-        })
+        // Add All Genres category
+        const genres = [{ name: "All Genres" }, ...getGenres()];
+        this.setState({ movies: getMovies(), genres })
     }
 
     handleDeleteMovie = movie => {
@@ -60,19 +59,26 @@ export default class Movies extends Component {
         this.setState({ currentPage: page });
     }
 
-    handleFilterItem = genre => {
-        this.setState({ selectedGenre: genre });
+    handleFilterGenre = genre => {
+        /*  when we select a genre we are looking 
+            at the correspndng page that is displayed 
+            which is not the case after filtering so 
+            we need to set the page to be 1 */
+        this.setState({ filteredGenre: genre, currentPage: 1 });
     }
 
     renderMovies = () => {
-        const { length: count } = this.state.movies;
         const { 
             pageSize, 
             currentPage, 
             movies: allMovies, 
-            genres, selectedGenre } = this.state;
+            genres, 
+            filteredGenre } = this.state;
 
-        const movies = paginate(allMovies, currentPage, pageSize);
+        const filteredMovies = filteredGenre && filteredGenre._id 
+            ? allMovies.filter(allMovie => allMovie.genre._id === filteredGenre._id) 
+            : allMovies;
+        const movies = paginate(filteredMovies, currentPage, pageSize);
 
         return (
             <div className="container">
@@ -80,11 +86,11 @@ export default class Movies extends Component {
 					<div className="col-3">
                         <ListGroup 
                             genres={genres} 
-                            filteredItem={selectedGenre}
-                            onFilterItem={this.handleFilterItem} />
+                            filteredGenre={filteredGenre}
+                            onFilterGenre={this.handleFilterGenre} />
 					</div>
                     <div className="col-9">
-                        <p>{this.displayMoviesNumber()}</p>
+                        <p>{this.displayMoviesNumber(filteredMovies)}</p>
                         <table className="table">
                             {this.renderTableHeader()}
                             {movies.map(movie => {
@@ -113,7 +119,7 @@ export default class Movies extends Component {
                             })}
                         </table>
                         <Pagination 
-                            itemsCount={count} 
+                            itemsCount={filteredMovies.length} 
                             pageSize={pageSize} 
                             currentPage={currentPage}
                             onPageChange={this.handlePageChange} />
@@ -123,11 +129,11 @@ export default class Movies extends Component {
         )
     }
 
-    displayMoviesNumber() {
-        if (this.state.movies.length === 0) 
+    displayMoviesNumber(movies) {
+        if (movies.length === 0) 
             return 'There are no movies on the database.';
 
-        return `Showing ${this.state.movies.length} movies in the database.`
+        return `Showing ${movies.length} movies in the database.`
     }
 
     render() {

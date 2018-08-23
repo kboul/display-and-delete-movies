@@ -6,19 +6,19 @@ const ListGroup = props => {
         genres, 
         valueProperty, 
         textProperty, 
-        onFilterItem, 
-        filteredItem } = props;
+        onFilterGenre, 
+        filteredGenre } = props;
 
     return (  
         <ul className="list-group">
             {genres.map(genre => {
                 return (
                     <li 
-                        key={genre[valueProperty]}
+                        key={genre[valueProperty] ? genre[valueProperty] : 'all'}
                         className={
-                            filteredItem.name === genre[textProperty] ? 'list-group-item active' : 'list-group-item'
+                            filteredGenre.name === genre[textProperty] ? 'list-group-item active' : 'list-group-item'
                         }
-                        onClick={() => { onFilterItem(genre) } }>
+                        onClick={() => { onFilterGenre(genre) } }>
                         {genre[textProperty]}
                     </li>
                 )
