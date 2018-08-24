@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import './MoviesTable.css';
+
 import Like from '../Like/Like';
 
 class MoviesTable extends Component {
