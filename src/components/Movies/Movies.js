@@ -100,6 +100,7 @@ export default class Movies extends Component {
                             ? null 
                             : <MoviesTable 
                                 movies={movies} 
+                                sortColumn={sortColumn}
                                 onLikeMovie={this.handleLike}
                                 onDeleteMovie={this.handleDeleteMovie}
                                 onSortMovie={this.handleSortMovie} />
