@@ -2,16 +2,16 @@ import React from 'react';
 import Like from '../Like/Like';
 
 const MoviesTable = (props) => {
-    const { movies, onLikeMovie, onDeleteMovie } = props;
+    const { movies, onLikeMovie, onDeleteMovie, onSortMovie } = props;
 
     return (  
         <table className="table">
             <thead>
                 <tr>
-                    <th scope="col">Title</th>
-                    <th scope="col">Genre</th>
-                    <th scope="col">Stock</th>
-                    <th scope="col">Range</th>
+                    <th onClick={() => {onSortMovie('title')}} scope="col">Title</th>
+                    <th onClick={() => {onSortMovie('genre.name')}} scope="col">Genre</th>
+                    <th onClick={() => {onSortMovie('numberInStock')}} scope="col">Stock</th>
+                    <th onClick={() => {onSortMovie('dailyRentalRate')}} scope="col">Range</th>
                     <th></th>
                     <th></th>
                 </tr>

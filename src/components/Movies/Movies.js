@@ -50,6 +50,10 @@ export default class Movies extends Component {
         this.setState({ filteredGenre: genre, currentPage: 1 });
     }
 
+    handleSortMovie = columnName => {
+        console.log(columnName);
+    }
+
     renderMovies = () => {
         const { 
             pageSize, 
@@ -80,7 +84,8 @@ export default class Movies extends Component {
                             : <MoviesTable 
                                 movies={movies} 
                                 onLikeMovie={this.handleLike}
-                                onDeleteMovie={this.handleDeleteMovie} />
+                                onDeleteMovie={this.handleDeleteMovie}
+                                onSortMovie={this.handleSortMovie} />
                         }
                         <Pagination 
                             itemsCount={filteredMovies.length} 
