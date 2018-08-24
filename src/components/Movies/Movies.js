@@ -63,12 +63,11 @@ export default class Movies extends Component {
         this.setState({ sortColumn });
     }
 
-    renderMovies = () => {
+    getPagedData = () => {
         const { 
             pageSize, 
             currentPage, 
             movies: allMovies, 
-            genres, 
             filteredGenre,
             sortColumn 
         } = this.state;
@@ -84,6 +83,24 @@ export default class Movies extends Component {
         // paginate movies' pages
         const movies = paginate(sortedMovies, currentPage, pageSize);
 
+        return {
+            totalCount: filteredMovies.length,
+            movies: movies
+        }
+    }
+
+    displayMoviesNumber(moviesLength) {
+        if (moviesLength === 0) 
+            return 'There are no moviesLength on the database.';
+
+        return `Showing ${moviesLength} movies in the database.`
+    }
+
+    render() {
+        const { pageSize, currentPage, genres, filteredGenre, sortColumn } = this.state;
+        
+        const { totalCount, movies } = this.getPagedData();
+
         return (
             <div className="container">
 				<div className="row">
@@ -94,7 +111,7 @@ export default class Movies extends Component {
                             onFilterGenre={this.handleFilterGenre} />
 					</div>
                     <div className="col-9">
-                        <p>{this.displayMoviesNumber(filteredMovies)}</p>
+                        <p>{this.displayMoviesNumber(totalCount)}</p>
                         {
                             this.state.movies.length === 0 
                             ? null 
@@ -106,27 +123,12 @@ export default class Movies extends Component {
                                 onSortMovie={this.handleSortMovie} />
                         }
                         <Pagination 
-                            itemsCount={filteredMovies.length} 
+                            itemsCount={totalCount} 
                             pageSize={pageSize} 
                             currentPage={currentPage}
                             onPageChange={this.handlePageChange} />
                     </div>
                 </div>
-            </div>
-        )
-    }
-
-    displayMoviesNumber(movies) {
-        if (movies.length === 0) 
-            return 'There are no movies on the database.';
-
-        return `Showing ${movies.length} movies in the database.`
-    }
-
-    render() {
-        return (
-            <div>
-                {this.renderMovies()}
             </div>
         )
     }
