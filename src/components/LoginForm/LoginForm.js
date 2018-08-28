@@ -13,13 +13,15 @@ class LoginForm extends Component {
         console.log("Submitted");
     }
 
-    handleChange = e => {
+    // instead of e.currentTarget
+    handleChange = ({ currentTarget: input }) => {
         const account = {...this.state.account};
-        account.username = e.currentTarget.value;
+        account[input.name] = input.value;
         this.setState({ account });
     }
 
     render() { 
+        const { account } = this.state;
         return ( 
             <div>
                 <h1>Login</h1>
@@ -29,11 +31,12 @@ class LoginForm extends Component {
                             Username
                         </label>
                         <input
-                            value={this.state.account.username}
+                            value={account.username}
                             onChange={this.handleChange}
                             type="text" 
                             className="form-control" 
-                            id="exampleInputUsername" 
+                            id="username" 
+                            name="username"
                             placeholder="Enter username" />
                     </div>
                     <div className="form-group">
@@ -41,9 +44,12 @@ class LoginForm extends Component {
                             Password
                         </label>
                         <input 
+                            value={account.password}
+                            onChange={this.handleChange}
                             type="password" 
                             className="form-control"
-                            id="exampleInputPassword1" 
+                            id="password" 
+                            name="password"
                             placeholder="Password" />
                     </div>
                     <button 
