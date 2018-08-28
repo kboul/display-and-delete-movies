@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Input from '../common/Input/Input';
 
 class LoginForm extends Component {
     state = {
@@ -26,32 +27,16 @@ class LoginForm extends Component {
             <div>
                 <h1>Login</h1>
                 <form onSubmit={this.handleSubmit}>
-                    <div className="form-group">
-                        <label htmlFor="exampleInputUsername">
-                            Username
-                        </label>
-                        <input
-                            value={account.username}
-                            onChange={this.handleChange}
-                            type="text" 
-                            className="form-control" 
-                            id="username" 
-                            name="username"
-                            placeholder="Enter username" />
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="exampleInputPassword1">
-                            Password
-                        </label>
-                        <input 
+                    <Input 
+                        name="username" 
+                        label="Username"
+                        value={account.username}
+                        onChange={this.handleChange} />
+                         <Input 
+                            name="password" 
+                            label="Password"
                             value={account.password}
-                            onChange={this.handleChange}
-                            type="password" 
-                            className="form-control"
-                            id="password" 
-                            name="password"
-                            placeholder="Password" />
-                    </div>
+                            onChange={this.handleChange} />
                     <button 
                         type="submit"
                         className="btn btn-primary">
