@@ -1,11 +1,18 @@
 import React, { Component } from 'react';
 
 class LoginForm extends Component {
+    username = React.createRef();
+
+    componentDidMount() {
+        this.username.current.focus();
+    }
+
     handleSubmit = e => {
         e.preventDefault();
 
         // call the server
-        console.log("Submitted");
+        const username = this.username.current.value
+        console.log("Submitted", username);
     }
 
     render() { 
@@ -14,15 +21,15 @@ class LoginForm extends Component {
                 <h1>Login</h1>
                 <form onSubmit={this.handleSubmit}>
                     <div className="form-group">
-                        <label htmlFor="exampleInputEmail1">
-                            Email address
+                        <label htmlFor="exampleInputUsername">
+                            Username
                         </label>
-                        <input 
-                            type="email" 
+                        <input
+                            ref={this.username} 
+                            type="username" 
                             className="form-control" 
-                            id="exampleInputEmail1" 
-                            aria-describedby="emailHelp" 
-                            placeholder="Enter email" />
+                            id="exampleInputUsername" 
+                            placeholder="Enter username" />
                     </div>
                     <div className="form-group">
                         <label htmlFor="exampleInputPassword1">
