@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import './MoviesTable.css';
 
 import Like from '../Like/Like';
+import { Link } from 'react-router-dom';
 
 class MoviesTable extends Component {
     columns = [
@@ -43,7 +44,7 @@ class MoviesTable extends Component {
                     return (
                         <tbody key={movie._id}>
                             <tr>
-                                <td>{movie.title}</td>        
+                                <td><Link to={`/movies/${movie._id}`}>{movie.title}</Link></td>  
                                 <td>{movie.genre.name}</td>   
                                 <td>{movie.numberInStock}</td> 
                                 <td>{movie.dailyRentalRate}</td>

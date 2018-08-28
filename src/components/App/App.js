@@ -5,6 +5,7 @@ import Navbar from '../Navbar/Navbar';
 import Customers from '../Customers/Customers'
 import Rentals from '../Rentals/Rentals'
 import NotFound from '../NotFound/NotFound';
+import MovieForm from '../MovieForm/MovieForm';
 
 import { Switch, Route, Redirect } from 'react-router-dom';
 
@@ -22,6 +23,7 @@ class App extends Component {
 				<Navbar routes={this.state.routes} />
 					<main role="main" className="container">
 						<Switch>
+							<Route path="/movies/:id" component={MovieForm} />      
 							<Route path="/movies" component={Movies}></Route>
 							<Route path="/customers" component={Customers}></Route>
 							<Route path="/rentals" component={Rentals}></Route>
