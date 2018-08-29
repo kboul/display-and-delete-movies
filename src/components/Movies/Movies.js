@@ -96,6 +96,11 @@ export default class Movies extends Component {
         return `Showing ${moviesLength} movies in the database.`
     }
 
+    handleCreateMovie = () => {
+        const { history } = this.props;
+        history.push("/movies/new");
+    }
+
     render() {
         const { pageSize, currentPage, genres, filteredGenre, sortColumn } = this.state;
         
@@ -111,6 +116,11 @@ export default class Movies extends Component {
                             onFilterGenre={this.handleFilterGenre} />
 					</div>
                     <div className="col-9">
+                        <button 
+                            className="btn btn-primary"
+                            onClick={this.handleCreateMovie}>
+                            New Movie
+                        </button>
                         <p>{this.displayMoviesNumber(totalCount)}</p>
                         {
                             this.state.movies.length === 0 
