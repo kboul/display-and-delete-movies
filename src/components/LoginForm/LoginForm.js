@@ -40,12 +40,7 @@ class LoginForm extends Form {
                         value={data.password}
                         error={errors.password}
                         onChange={this.handleChange} />
-                    <button 
-                        disabled={this.validate()}
-                        type="submit"
-                        className="btn btn-primary">
-                        Login
-                    </button>
+                    {this.renderButton("Login")}
                 </form>
             </div>
         );

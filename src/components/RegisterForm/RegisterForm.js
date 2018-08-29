@@ -48,12 +48,7 @@ class RegisterForm extends Form {
                         value={data.name}
                         error={errors.name}
                         onChange={this.handleChange} />
-                    <button 
-                        disabled={this.validate()}
-                        type="submit"
-                        className="btn btn-primary">
-                        Register
-                    </button>
+                    {this.renderButton("Register")}
                 </form>
             </div>
         );
