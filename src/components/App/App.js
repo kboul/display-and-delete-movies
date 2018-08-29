@@ -8,6 +8,7 @@ import Rentals from '../Rentals/Rentals'
 import NotFound from '../NotFound/NotFound';
 import MovieForm from '../MovieForm/MovieForm';
 import LoginForm from '../LoginForm/LoginForm';
+import RegisterForm from '../RegisterForm/RegisterForm';
 
 import './App.css';
 
@@ -17,7 +18,8 @@ class App extends Component {
 			{ path: '/movies', name: "Movies" },
 			{ path: '/customers', name: "Customers" },
 			{ path: '/rentals', name: "Rentals" },
-			{ path: '/login', name: "Login" }
+			{ path: '/login', name: "Login" },
+			{ path: '/register', name: 'Register'}
 		]
 	}
 	render() {
@@ -26,6 +28,7 @@ class App extends Component {
 				<Navbar routes={this.state.routes} />
 					<main role="main" className="container">
 						<Switch>
+							<Route path="/register" component={RegisterForm} /> 
 							<Route path="/login" component={LoginForm} /> 
 							<Route path="/movies/:id" component={MovieForm} />      
 							<Route path="/movies" component={Movies}></Route>
