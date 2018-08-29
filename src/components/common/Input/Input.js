@@ -13,7 +13,7 @@ const Input = ({ name, label, value, error, onChange }) => {
                 className="form-control" 
                 id={name} 
                 name={name}
-                placeholder="Enter username" />
+                placeholder={`Enter ${label}`} />
                 {error && <div className="alert alert-danger">
                     {error}
                 </div>}
