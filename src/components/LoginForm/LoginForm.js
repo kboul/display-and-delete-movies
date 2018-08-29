@@ -22,13 +22,6 @@ class LoginForm extends Form {
         console.log("Submitted");
     }
 
-    validateProperty = ({name, value}) => {
-       const obj = { [name]: value };
-       const schema = { [name]: this.schema[name] };
-       const { error } = Joi.validate(obj, schema);
-       return error ? error.details[0].message : null;
-    }
-
     render() { 
         const { data, errors } = this.state;
         return ( 
