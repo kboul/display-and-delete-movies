@@ -6,11 +6,32 @@ class LoginForm extends Component {
         account: {
             username: '',
             password: ''
-        }
+        },
+        errors: {}
+    }
+
+    validate = () => {
+        const errors = {};
+
+        const { account } = this.state;
+        if (account.username.trim() === '')
+            errors.username = 'Username is required';
+        if (account.password.trim() === '')
+            errors.password = 'Password is required';
+
+        // if the keys array of errors object is 0 => no errors
+        return Object.keys(errors).length === 0 ? null : errors;
     }
 
     handleSubmit = e => {
         e.preventDefault();
+
+        const errors = this.validate();
+        // errors should not be null
+        this.setState({ errors: errors || {} });
+        if (errors) return ;
+
+        // Call th eserver
         console.log("Submitted");
     }
 
@@ -22,7 +43,7 @@ class LoginForm extends Component {
     }
 
     render() { 
-        const { account } = this.state;
+        const { account, errors } = this.state;
         return ( 
             <div>
                 <h1>Login</h1>
@@ -31,12 +52,14 @@ class LoginForm extends Component {
                         name="username" 
                         label="Username"
                         value={account.username}
+                        error={errors.username}
                         onChange={this.handleChange} />
-                         <Input 
-                            name="password" 
-                            label="Password"
-                            value={account.password}
-                            onChange={this.handleChange} />
+                    <Input 
+                        name="password" 
+                        label="Password"
+                        value={account.password}
+                        error={errors.password}
+                        onChange={this.handleChange} />
                     <button 
                         type="submit"
                         className="btn btn-primary">
