@@ -28,6 +28,8 @@ class MovieForm extends Form {
         this.setState({ data: this.mapToViewModel(movie) });
     }
 
+    // model has to be redisigned 
+    // to fit the fakeDB in case of edit mode
     mapToViewModel(movie) {
         return {
             _id: movie._id,
