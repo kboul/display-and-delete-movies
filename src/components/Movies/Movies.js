@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { getMovies } from '../../services/fakeMovieService';
+import { getMovies, deleteMovie } from '../../services/fakeMovieService';
 import { getGenres } from '../../services/fakeGenreService';
 import _ from 'lodash';
 
@@ -30,6 +30,8 @@ export default class Movies extends Component {
     handleDeleteMovie = movie => {
         const movies = this.state.movies.filter(mov => mov._id !== movie._id);
         this.setState({ movies });
+        // delete movie from the fakeMovieService
+        deleteMovie(movie._id);
     }
 
     handleLike = movie => {
