@@ -2,6 +2,7 @@ import React from 'react'
 import Form from '../common/Form/Form';
 import Joi from 'joi-browser';
 import { getGenres } from '../../services/fakeGenreService';
+import { saveMovie } from '../../services/fakeMovieService';
 
 class MovieForm extends Form {
     state = {
@@ -30,6 +31,8 @@ class MovieForm extends Form {
     doSubmit = () => {
         // Call the server
         console.log("Movie Form Submitted");
+        // save the movie using the fakeMovieService
+        saveMovie(this.state.data);
         this.props.history.replace('/movies');
     }
 
