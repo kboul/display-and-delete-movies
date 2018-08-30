@@ -2,7 +2,7 @@ import React from 'react'
 import Form from '../common/Form/Form';
 import Joi from 'joi-browser';
 import { getGenres } from '../../services/fakeGenreService';
-import { saveMovie } from '../../services/fakeMovieService';
+import { saveMovie, getMovie } from '../../services/fakeMovieService';
 
 class MovieForm extends Form {
     state = {
@@ -19,9 +19,27 @@ class MovieForm extends Form {
     componentDidMount() {
         const genres = getGenres();
         this.setState({ genres });
+
+        const { match, history } = this.props;
+
+        if (history.location.pathname.includes("new")) return;
+        const id = match.params.id;
+        const movie = getMovie(id);
+        this.setState({ data: this.mapToViewModel(movie) });
+    }
+
+    mapToViewModel(movie) {
+        return {
+            _id: movie._id,
+            title: movie.title,
+            genre: movie.genre._id,
+            numberInStock: movie.numberInStock,
+            dailyRentalRate: movie.dailyRentalRate
+        }
     }
 
     schema = {
+        _id: Joi.string(),
         title: Joi.string().required().label("Title"),
         genre: Joi.string().required().label("Genre"),
         numberInStock: Joi.number().integer().min(0).max(100).label("Number In Stock"),
