@@ -17,14 +17,26 @@ class MovieForm extends Form {
     }
 
     componentDidMount() {
+        // fetch the genres from the fakeAPI
         const genres = getGenres();
         this.setState({ genres });
 
         const { match, history } = this.props;
 
+        // if url is new return
         if (history.location.pathname.includes("new")) return;
+
+        // extract the movie id to get the specific movie
         const id = match.params.id;
         const movie = getMovie(id);
+        
+        // if movie is undefined navigate to not found page 
+        if (!movie) {
+            history.replace("/not-found");
+            return;
+        }
+        
+        // if the url is not new populate the form with selected movie data
         this.setState({ data: this.mapToViewModel(movie) });
     }
 
