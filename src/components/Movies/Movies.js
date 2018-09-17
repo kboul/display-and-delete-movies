@@ -10,6 +10,7 @@ import ListGroup from '../ListGroup/ListGroup';
 
 import { paginate } from '../../utils/paginate';
 import MoviesTable from '../MoviesTable/MoviesTable';
+import Search from '../Search/Search';
 
 export default class Movies extends Component {
     state = {
@@ -18,7 +19,8 @@ export default class Movies extends Component {
         currentPage: 1,
         genres: [],
         filteredGenre: { name: "All Genres" },
-        sortColumn: { path: 'title', order: 'asc' }
+        sortColumn: { path: 'title', order: 'asc' },
+        searchQuery: ''
     }
 
     componentDidMount() {
@@ -48,10 +50,14 @@ export default class Movies extends Component {
 
     handleFilterGenre = genre => {
         /*  when we select a genre we are looking 
-            at the correspndng page that is displayed 
+            at the corresponding page that is displayed 
             which is not the case after filtering so 
             we need to set the page to be 1 */
-        this.setState({ filteredGenre: genre, currentPage: 1 });
+        this.setState({ 
+            filteredGenre: genre, 
+            currentPage: 1, 
+            searchQuery: '' // clear the search query on category click
+        });
     }
 
     handleSortMovie = path => {
@@ -65,6 +71,12 @@ export default class Movies extends Component {
         this.setState({ sortColumn });
     }
 
+    handleSearchMovie = ({ currentTarget: input }) => {
+        // convert the search input to lowercase & store it
+        const searchQuery = input.value.toLowerCase();
+        this.setState({ searchQuery, currentPage: 1 });
+    }
+
     getPagedData = () => {
         const { 
             pageSize, 
@@ -75,7 +87,7 @@ export default class Movies extends Component {
         } = this.state;
         
         // filter movies by genre
-        const filteredMovies = filteredGenre && filteredGenre._id 
+        let filteredMovies = filteredGenre && filteredGenre._id 
             ? allMovies.filter(allMovie => allMovie.genre._id === filteredGenre._id) 
             : allMovies;
         
@@ -83,7 +95,14 @@ export default class Movies extends Component {
         const sortedMovies = _.orderBy(filteredMovies, [sortColumn.path], [sortColumn.order]);
         
         // paginate movies' pages
-        const movies = paginate(sortedMovies, currentPage, pageSize);
+        let movies = paginate(sortedMovies, currentPage, pageSize);
+
+        // if search input is not empty filter the movies based on input
+        if (this.state.searchQuery.length > 0)
+            filteredMovies = allMovies.filter(movie => 
+                movie.title.toLowerCase().includes(this.state.searchQuery));
+
+            movies = paginate(filteredMovies, currentPage, pageSize)
 
         return {
             totalCount: filteredMovies.length,
@@ -93,7 +112,7 @@ export default class Movies extends Component {
 
     displayMoviesNumber(moviesLength) {
         if (moviesLength === 0) 
-            return 'There are no moviesLength on the database.';
+            return 'There are no movies on the database.';
 
         return `Showing ${moviesLength} movies in the database.`
     }
@@ -104,7 +123,7 @@ export default class Movies extends Component {
     }
 
     render() {
-        const { pageSize, currentPage, genres, filteredGenre, sortColumn } = this.state;
+        const { pageSize, currentPage, genres, filteredGenre, sortColumn, searchQuery } = this.state;
         
         const { totalCount, movies } = this.getPagedData();
 
@@ -113,6 +132,7 @@ export default class Movies extends Component {
 				<div className="row">
 					<div className="col-3">
                         <ListGroup 
+                            searchQuery={searchQuery}
                             genres={genres} 
                             filteredGenre={filteredGenre}
                             onFilterGenre={this.handleFilterGenre} />
@@ -124,6 +144,9 @@ export default class Movies extends Component {
                             New Movie
                         </button>
                         <p>{this.displayMoviesNumber(totalCount)}</p>
+                        <Search 
+                            value={searchQuery} 
+                            onSearchMovie={this.handleSearchMovie} />
                         {
                             this.state.movies.length === 0 
                             ? null 

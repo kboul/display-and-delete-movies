@@ -1,7 +1,7 @@
 import React from 'react';
 import './ListGroup.css';
 
-const ListGroup = ({ genres, valueProperty, textProperty, onFilterGenre, filteredGenre }) => {
+const ListGroup = ({ genres, valueProperty, textProperty, onFilterGenre, filteredGenre, searchQuery }) => {
     return (  
         <ul className="list-group">
             {genres.map(genre => {
@@ -9,7 +9,8 @@ const ListGroup = ({ genres, valueProperty, textProperty, onFilterGenre, filtere
                     <li 
                         key={genre[valueProperty] ? genre[valueProperty] : 'all'}
                         className={
-                            filteredGenre.name === genre[textProperty] ? 'list-group-item active' : 'list-group-item'
+                            filteredGenre.name === genre[textProperty] && searchQuery.length === 0 ? 
+                                'list-group-item active' : 'list-group-item'
                         }
                         onClick={() => { onFilterGenre(genre) } }>
                         {genre[textProperty]}
