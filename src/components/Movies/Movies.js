@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import { getMovies, deleteMovie } from '../../services/fakeMovieService';
-import { getGenres } from '../../services/fakeGenreService';
+import { getMovies, deleteMovie } from '../../services/movieService';
+import { getGenres } from '../../services/genreService';
 import _ from 'lodash';
 
 import './Movies.css';
@@ -23,17 +23,27 @@ export default class Movies extends Component {
         searchQuery: ''
     }
 
-    componentDidMount() {
+    async componentDidMount() {
         // Add All Genres category
-        const genres = [{ name: "All Genres" }, ...getGenres()];
-        this.setState({ movies: getMovies(), genres })
+        const { data: allGenres } = await getGenres();
+        const genres = [{ name: "All Genres" }, ...allGenres];
+        const { data: movies } = await getMovies();
+        this.setState({ movies, genres });
     }
 
-    handleDeleteMovie = movie => {
-        const movies = this.state.movies.filter(mov => mov._id !== movie._id);
+    handleDeleteMovie = async movie => {
+        const originalMovies = this.state.movies;
+        const movies = originalMovies.filter(mov => mov._id !== movie._id);
         this.setState({ movies });
-        // delete movie from the fakeMovieService
-        deleteMovie(movie._id);
+        // delete movie from the mongoDB
+        try {
+            await deleteMovie(movie._id);
+        }
+        catch(ex) {
+            if (ex.response && ex.response.status === 404)
+                alert('This movie has already been deleted');
+                this.setState({ movies: originalMovies });
+        }
     }
 
     handleLike = movie => {
