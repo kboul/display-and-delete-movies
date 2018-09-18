@@ -103,19 +103,17 @@ export default class Movies extends Component {
         let filteredMovies = filteredGenre && filteredGenre._id 
             ? allMovies.filter(allMovie => allMovie.genre._id === filteredGenre._id) 
             : allMovies;
+
+        // if search input is not empty filter the movies based on input
+        if (this.state.searchQuery.length > 0)
+            filteredMovies = allMovies.filter(movie => 
+                movie.title.toLowerCase().includes(this.state.searchQuery));
         
         // sort movies by column name
         const sortedMovies = _.orderBy(filteredMovies, [sortColumn.path], [sortColumn.order]);
         
         // paginate movies' pages
         let movies = paginate(sortedMovies, currentPage, pageSize);
-
-        // if search input is not empty filter the movies based on input
-        if (this.state.searchQuery.length > 0)
-            filteredMovies = allMovies.filter(movie => 
-                movie.title.toLowerCase().includes(this.state.searchQuery));
-
-            movies = paginate(filteredMovies, currentPage, pageSize)
 
         return {
             totalCount: filteredMovies.length,
