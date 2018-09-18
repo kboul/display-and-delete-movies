@@ -1,4 +1,6 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import { toast } from 'react-toastify';
+
 import { getMovies, deleteMovie } from '../../services/movieService';
 import { getGenres } from '../../services/genreService';
 import _ from 'lodash';
@@ -41,8 +43,9 @@ export default class Movies extends Component {
         }
         catch(ex) {
             if (ex.response && ex.response.status === 404)
-                alert('This movie has already been deleted');
-                this.setState({ movies: originalMovies });
+                toast.error('This movie has already been deleted');
+            // undo the movies at any error response type
+            this.setState({ movies: originalMovies });
         }
     }
 
