@@ -1,14 +1,14 @@
 import React from 'react'
 import Form from '../common/Form/Form';
 import Joi from 'joi-browser';
-import { getGenres } from '../../services/fakeGenreService';
-import { saveMovie, getMovie } from '../../services/fakeMovieService';
+import { getGenres } from '../../services/genreService';
+import { saveMovie, getMovie } from '../../services/movieService';
 
 class MovieForm extends Form {
     state = {
         data: {
             title: '',
-            genre: '',
+            genreId: '',
             numberInStock: '',
             dailyRentalRate: ''
         },
@@ -16,11 +16,13 @@ class MovieForm extends Form {
         errors: {}
     }
 
-    componentDidMount() {
-        // fetch the genres from the fakeAPI
-        const genres = getGenres();
+    async populateGenres() {
+        // fetch the genres from the nodeAPI
+        const { data: genres } = await getGenres();
         this.setState({ genres });
+    }
 
+    async populateMovie() {
         const { match, history } = this.props;
 
         // if url is new return
@@ -28,25 +30,32 @@ class MovieForm extends Form {
 
         // extract the movie id to get the specific movie
         const id = match.params.id;
-        const movie = getMovie(id);
-        
-        // if movie is undefined navigate to not found page 
-        if (!movie) {
-            history.replace("/not-found");
-            return;
+
+        try {
+            const { data: movie } = await getMovie(id);
+               
+            // if the url is not new populate the form with selected movie data
+            this.setState({ data: this.mapToViewModel(movie) });
         }
-        
-        // if the url is not new populate the form with selected movie data
-        this.setState({ data: this.mapToViewModel(movie) });
+        catch (ex) {
+            // if movie is undefined navigate to not found page 
+            if (ex.response && ex.response.status === 404)
+                history.replace("/not-found");
+        }
     }
 
-    // model has to be redisigned 
-    // to fit the fakeDB in case of edit mode
+    async componentDidMount() {
+        await this.populateGenres();
+        await this.populateMovie();
+    }
+
+    // model has to be redesigned 
+    // to fit the nodeDB in case of edit mode
     mapToViewModel(movie) {
         return {
             _id: movie._id,
             title: movie.title,
-            genre: movie.genre._id,
+            genreId: movie.genre._id,
             numberInStock: movie.numberInStock,
             dailyRentalRate: movie.dailyRentalRate
         }
@@ -55,16 +64,16 @@ class MovieForm extends Form {
     schema = {
         _id: Joi.string(),
         title: Joi.string().required().label("Title"),
-        genre: Joi.string().required().label("Genre"),
+        genreId: Joi.string().required().label("Genre"),
         numberInStock: Joi.number().integer().min(0).max(100).label("Number In Stock"),
         dailyRentalRate: Joi.number().min(0).max(10).label("Rate")
     }
 
-    doSubmit = () => {
+    doSubmit = async () => {
         // Call the server
         console.log("Movie Form Submitted");
-        // save the movie using the fakeMovieService
-        saveMovie(this.state.data);
+        // save the movie using the nodeMovieService
+        await saveMovie(this.state.data);
         this.props.history.replace('/movies');
     }
 
@@ -74,7 +83,7 @@ class MovieForm extends Form {
                 <h1>Movie Form</h1>
                 <form onSubmit={this.handleSubmit}>
                     {this.renderInput("title", "Title")}
-                    {this.renderSelect("genre", "Genre", this.state.genres)}
+                    {this.renderSelect("genreId", "Genre", this.state.genres)}
                     {this.renderInput("numberInStock", "Number In Stock")}
                     {this.renderInput("dailyRentalRate", "Daily Rental Rate")}
                     {this.renderButton("Save")}
