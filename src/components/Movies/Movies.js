@@ -149,11 +149,12 @@ export default class Movies extends Component {
                             onFilterGenre={this.handleFilterGenre} />
 					</div>
                     <div className="col-9">
+                        {this.props.user &&
                         <button 
                             className="btn btn-primary"
                             onClick={this.handleCreateMovie}>
                             New Movie
-                        </button>
+                        </button>}
                         <p>{this.displayMoviesNumber(totalCount)}</p>
                         <Search 
                             value={searchQuery} 
