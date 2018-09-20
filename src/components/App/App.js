@@ -20,9 +20,7 @@ class App extends Component {
 		routes: [
 			{ path: '/movies', name: "Movies" },
 			{ path: '/customers', name: "Customers" },
-			{ path: '/rentals', name: "Rentals" },
-			{ path: '/login', name: "Login" },
-			{ path: '/register', name: 'Register'}
+			{ path: '/rentals', name: "Rentals" }
 		]
 	}
 
