@@ -30,7 +30,12 @@ export function getCurrentUser() {
     return jwtDecode(jwt);	
 }
 
+export function getJwt() {
+    return localStorage.getItem(tokenKey);
+}
+
 export default {
+    getJwt,
     login,
     loginWithJwt,
     logout,

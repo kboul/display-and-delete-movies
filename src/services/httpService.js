@@ -1,5 +1,13 @@
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import authService from './authService';
+
+/*
+	configuring default headers 
+	by includingthem in each request
+	node: "requiresAuth": true
+*/
+axios.defaults.headers.common['x-auth-token'] = authService.getJwt();
 
 axios.interceptors.response.use(null, error => {
 	const expectedError = 
