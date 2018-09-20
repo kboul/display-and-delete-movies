@@ -3,7 +3,7 @@ import config from '../config.json';
 
 const apiEndpoint = `${config.apiEndpoint}/users`;
 
-export function register(user) {
+export default function register(user) {
     return http.post(apiEndpoint, {
         email: user.username,
         password: user.password,
