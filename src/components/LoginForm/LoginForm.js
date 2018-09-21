@@ -36,7 +36,7 @@ class LoginForm extends Form {
     }
 
     render() { 
-        if (authService.getCurrentUser()) return <Redirect to="/login" />;
+        if (authService.getCurrentUser()) return <Redirect to="/" />;
 
         return ( 
             <div>
