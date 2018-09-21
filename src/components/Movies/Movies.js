@@ -151,7 +151,7 @@ export default class Movies extends Component {
                     <div className="col-9">
                         {this.props.user &&
                         <button 
-                            className="btn btn-primary"
+                            className="btn btn-primary my-3"
                             onClick={this.handleCreateMovie}>
                             New Movie
                         </button>}
