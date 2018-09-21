@@ -4,6 +4,8 @@ import './MoviesTable.css';
 import Like from '../Like/Like';
 import { Link } from 'react-router-dom';
 
+import authService from '../../services/authService';
+
 class MoviesTable extends Component {
     columns = [
         { path: "title", label: "Title" },
@@ -54,11 +56,11 @@ class MoviesTable extends Component {
                                         onClick={() => { onLikeMovie(movie) } }/>
                                 </td>
                                 <td>
-                                    <button 
-                                        className="btn btn-danger"
+                                    {authService.getCurrentUser() && <button 
+                                        className="btn btn-danger btn-sm"
                                         onClick={() => onDeleteMovie(movie)}>
                                         Delete
-                                    </button>
+                                    </button>}
                                 </td>
                             </tr> 
                         </tbody>
