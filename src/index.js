@@ -9,6 +9,8 @@ import registerServiceWorker from './registerServiceWorker';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'font-awesome/css/font-awesome.min.css'; 
 
+console.log(process.env);
+
 ReactDOM.render(
     <Router>
         <App />
