@@ -11,6 +11,7 @@ import MovieForm from '../MovieForm/MovieForm';
 import LoginForm from '../LoginForm/LoginForm';
 import RegisterForm from '../RegisterForm/RegisterForm';
 import Logout from '../Logout/Logout';
+import ProtectedRoute from '../common/ProtectedRoute/ProtectedRoute';
 
 import authService from '../../services/authService';
 
@@ -44,21 +45,14 @@ class App extends Component {
 						<Route path="/register" component={RegisterForm} /> 
 						<Route path="/login" component={LoginForm} /> 
 						<Route path="/logout" component={Logout} /> 
-						<Route 
-							path="/movies/new" 
-							render={props => { 
-								return user ? 
-									<MovieForm {...props} /> : 
-									<Redirect to="/login" />}}> 
-						</Route>    
-						<Route path="/movies/:id" component={MovieForm} />      
+						<ProtectedRoute path="/movies/:id" component={MovieForm} />      
 						<Route 
 							path="/movies" 
 							render={props => <Movies {...props} user={user}/>}>
 						</Route>
-						<Route path="/customers" component={Customers}></Route>
-						<Route path="/rentals" component={Rentals}></Route>
-						<Route path="/not-found" component={NotFound}></Route>
+						<Route path="/customers" component={Customers} />
+						<Route path="/rentals" component={Rentals} />
+						<Route path="/not-found" component={NotFound} />
 						<Redirect from="/" exact to="/movies" />
 						<Redirect to="/not-found" />
 					</Switch>
