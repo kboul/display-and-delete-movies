@@ -1,5 +1,7 @@
-import axios from 'axios';
+import http from '../services/httpService';
+
+const apiEndpoint = '/genres';
 
 export function getGenres () {
-    return axios.get('/genres');
+    return http.get(apiEndpoint);
 }
