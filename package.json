@@ -3,22 +3,22 @@
     "version": "0.1.0",
     "private": true,
     "dependencies": {
-        "axios": "^0.18.0",
+        "axios": "^0.19.0",
         "bootstrap": "^4.3.1",
         "font-awesome": "^4.7.0",
         "joi-browser": "^13.4.0",
-        "jquery": "^3.3.1",
+        "jquery": "^3.4.1",
         "jwt-decode": "^2.2.0",
         "lodash": "^4.17.11",
         "merge": "^1.2.1",
-        "popper.js": "^1.14.7",
+        "popper.js": "^1.15.0",
         "prop-types": "^15.7.2",
-        "react": "^16.8.3",
+        "react": "^16.8.6",
         "react-bootstrap": "^0.32.4",
-        "react-dom": "^16.8.3",
-        "react-router-dom": "^4.3.1",
-        "react-scripts": "^2.1.5",
-        "react-toastify": "^4.5.2"
+        "react-dom": "^16.8.6",
+        "react-router-dom": "^5.0.0",
+        "react-scripts": "^3.0.1",
+        "react-toastify": "^5.2.1"
     },
     "scripts": {
         "start": "react-scripts start",
@@ -27,7 +27,7 @@
         "eject": "react-scripts eject"
     },
     "devDependencies": {
-        "handlebars": "^4.1.0"
+        "handlebars": "^4.1.2"
     },
     "browserslist": [
         ">0.2%",
