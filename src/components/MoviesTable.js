@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom';
-import Like from '../Like';
-import authService from '../../services/authService';
-import './MoviesTable.css';
+import Like from './Like';
+import authService from '../services/authService';
+import '../styles/MoviesTable.css';
 
 class MoviesTable extends Component {
     columns = [
