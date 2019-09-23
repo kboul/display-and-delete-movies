@@ -1,8 +1,8 @@
 import React from 'react'
-import Form from '../common/Form/Form';
+import Form from './common/Form/Form';
 import Joi from 'joi-browser';
-import { getGenres } from '../../services/genreService';
-import { saveMovie, getMovie } from '../../services/movieService';
+import { getGenres } from '../services/genreService';
+import { saveMovie, getMovie } from '../services/movieService';
 
 class MovieForm extends Form {
     state = {
@@ -33,7 +33,7 @@ class MovieForm extends Form {
 
         try {
             const { data: movie } = await getMovie(id);
-               
+
             // if the url is not new populate the form with selected movie data
             this.setState({ data: this.mapToViewModel(movie) });
         }
@@ -77,8 +77,8 @@ class MovieForm extends Form {
         this.props.history.replace('/movies');
     }
 
-    render() { 
-        return ( 
+    render() {
+        return (
             <div>
                 <h1>Movie Form</h1>
                 <form onSubmit={this.handleSubmit}>
@@ -92,5 +92,5 @@ class MovieForm extends Form {
         );
     }
 }
- 
+
 export default MovieForm;
