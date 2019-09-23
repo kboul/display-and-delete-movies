@@ -1,6 +1,7 @@
-import React from 'react'
-import './Navbar.css';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { Link, NavLink } from 'react-router-dom';
+import '../styles/Navbar.css';
 
 const Navbar = ({ routes, user }) => {
     return (
@@ -32,7 +33,7 @@ const Navbar = ({ routes, user }) => {
                             )
                         })}
                         {!user ?
-                            <React.Fragment>
+                            <>
                                 <li className="nav-item">
                                     <NavLink
                                         className="nav-link"
@@ -47,9 +48,9 @@ const Navbar = ({ routes, user }) => {
                                         Register
                                     </NavLink>
                                 </li>
-                            </React.Fragment>
+                            </>
                             :
-                            <React.Fragment>
+                            <>
                                 <li className="nav-item">
                                     <NavLink
                                         className="nav-link"
@@ -65,13 +66,18 @@ const Navbar = ({ routes, user }) => {
                                         Logout
                                     </NavLink>
                                 </li>
-                            </React.Fragment>
+                            </>
                         }
                     </ul>
                 </div>
             </nav>
         </header>
     );
+}
+
+Navbar.propTypes = {
+    routes: PropTypes.array.isRequired,
+    user: PropTypes.object
 }
 
 export default Navbar;

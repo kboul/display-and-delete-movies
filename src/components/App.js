@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import Movies from './Movies';
-import Navbar from './Navbar/Navbar';
+import Navbar from './Navbar';
 import Customers from './Customers'
 import Rentals from './Rentals'
 import NotFound from './NotFound';
