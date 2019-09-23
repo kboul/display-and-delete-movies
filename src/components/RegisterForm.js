@@ -1,8 +1,8 @@
 import React from 'react'
-import Form from '../common/Form/Form';
+import Form from './common/Form/Form';
 import Joi from 'joi-browser';
-import userService from '../../services/userService';
-import authService from '../../services/authService';
+import userService from '../services/userService';
+import authService from '../services/authService';
 
 class RegisterForm extends Form {
     state = {
@@ -24,20 +24,20 @@ class RegisterForm extends Form {
         try {
             const response = await userService.register(this.state.data);
             authService.loginWithJwt(response.headers['x-auth-token']);
-            window.location= '/';
-        } catch(ex) {
+            window.location = '/';
+        } catch (ex) {
             if (ex.response && ex.response.status === 400) {
                 // if user has already registered & tries to register again
                 // pass the DB output error message to username
-                const errors = {...this.state.errors};
+                const errors = { ...this.state.errors };
                 errors.username = ex.response.data;
                 this.setState({ errors });
             }
         }
     }
 
-    render() { 
-        return ( 
+    render() {
+        return (
             <div>
                 <h1>Register</h1>
                 <form onSubmit={this.handleSubmit}>
@@ -50,5 +50,5 @@ class RegisterForm extends Form {
         );
     }
 }
- 
+
 export default RegisterForm;

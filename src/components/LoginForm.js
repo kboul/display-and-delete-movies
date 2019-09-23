@@ -1,8 +1,8 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
-import Form from '../common/Form/Form';
+import Form from './common/Form/Form';
 import Joi from 'joi-browser';
-import authService from '../../services/authService';
+import authService from '../services/authService';
 
 class LoginForm extends Form {
     state = {
@@ -27,7 +27,7 @@ class LoginForm extends Form {
             window.location = state ? state.from.pathname : '/';
         } catch (ex) {
             if (ex.response && ex.response.status === 400) {
-                const errors = {...this.state.errors};
+                const errors = { ...this.state.errors };
                 errors.username = ex.response.data;
                 this.setState({ errors });
             }
@@ -35,10 +35,10 @@ class LoginForm extends Form {
         console.log(this.state.errors);
     }
 
-    render() { 
+    render() {
         if (authService.getCurrentUser()) return <Redirect to="/" />;
 
-        return ( 
+        return (
             <div>
                 <h1>Login</h1>
                 <form onSubmit={this.handleSubmit}>
@@ -50,5 +50,5 @@ class LoginForm extends Form {
         );
     }
 }
- 
+
 export default LoginForm;
