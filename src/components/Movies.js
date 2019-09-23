@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
 import { toast } from 'react-toastify';
-import Pagination from '../Pagination';
-import ListGroup from '../ListGroup/ListGroup';
-import MoviesTable from '../MoviesTable/MoviesTable';
-import Search from '../Search';
-import { getMovies, deleteMovie } from '../../services/movieService';
-import { getGenres } from '../../services/genreService';
-import { paginate } from '../../utils/paginate';
-import './Movies.css';
+import Pagination from './Pagination';
+import ListGroup from './ListGroup/ListGroup';
+import MoviesTable from './MoviesTable/MoviesTable';
+import Search from './Search';
+import { getMovies, deleteMovie } from '../services/movieService';
+import { getGenres } from '../services/genreService';
+import { paginate } from '../utils/paginate';
+import '../styles/Movies.css';
 
 export default class Movies extends Component {
     state = {
