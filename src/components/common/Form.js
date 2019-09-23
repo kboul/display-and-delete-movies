@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
-import Input from '../Input/Input';
 import Joi from 'joi-browser';
-import Select from '../Select/Select';
+import Input from './Input';
+import Select from './Select';
 
 class Form extends Component {
-    state = { 
+    state = {
         data: {},
         errors: []
     }
 
     validate = () => {
-        const result = Joi.validate(this.state.data, this.schema, { 
-            abortEarly: false 
+        const result = Joi.validate(this.state.data, this.schema, {
+            abortEarly: false
         });
 
         if (!result.error) return null;
@@ -22,7 +22,7 @@ class Form extends Component {
         return errors;
     }
 
-    validateProperty = ({name, value}) => {
+    validateProperty = ({ name, value }) => {
         const obj = { [name]: value };
         const schema = { [name]: this.schema[name] };
         const { error } = Joi.validate(obj, schema);
@@ -35,19 +35,19 @@ class Form extends Component {
         const errors = this.validate();
         // errors should not be null
         this.setState({ errors: errors || {} });
-        if (errors) return ;
+        if (errors) return;
 
         this.doSubmit();
     }
 
     // instead of e.currentTarget
     handleChange = ({ currentTarget: input }) => {
-        const errors = {...this.state.errors};
+        const errors = { ...this.state.errors };
         const errorMessage = this.validateProperty(input);
         if (errorMessage) errors[input.name] = errorMessage;
         else delete errors[input.name];
 
-        const data = {...this.state.data};
+        const data = { ...this.state.data };
         data[input.name] = input.value;
         this.setState({ data, errors });
     }
@@ -55,8 +55,8 @@ class Form extends Component {
     renderInput(name, label) {
         const { data, errors } = this.state;
         return (
-            <Input 
-                name={name} 
+            <Input
+                name={name}
                 label={label}
                 value={data[name]}
                 error={errors[name]}
@@ -67,7 +67,7 @@ class Form extends Component {
     renderSelect(name, label, options) {
         const { data, errors } = this.state;
         return (
-            <Select 
+            <Select
                 options={options}
                 value={data[name]}
                 name={name}
@@ -79,7 +79,7 @@ class Form extends Component {
 
     renderButton(label) {
         return (
-            <button 
+            <button
                 disabled={this.validate()}
                 type="submit"
                 className="btn btn-primary">
@@ -88,5 +88,5 @@ class Form extends Component {
         )
     }
 }
- 
+
 export default Form;

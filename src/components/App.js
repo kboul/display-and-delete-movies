@@ -10,7 +10,7 @@ import MovieForm from './MovieForm';
 import LoginForm from './LoginForm';
 import RegisterForm from './RegisterForm';
 import Logout from './Logout';
-import ProtectedRoute from './common/ProtectedRoute/ProtectedRoute';
+import ProtectedRoute from './common/ProtectedRoute';
 import Profile from './Profile';
 import authService from '../services/authService';
 import 'react-toastify/dist/ReactToastify.css';
