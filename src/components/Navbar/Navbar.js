@@ -3,64 +3,64 @@ import './Navbar.css';
 import { Link, NavLink } from 'react-router-dom';
 
 const Navbar = ({ routes, user }) => {
-    return ( 
+    return (
         <header>
             <nav className="navbar navbar-expand-lg navbar-light bg-light">
                 <Link className="navbar-brand" to="/movies">Video App</Link>
-                    <button 
-                        className="navbar-toggler" 
-                        type="button" data-toggle="collapse" 
-                        data-target="#navbarCollapse" 
-                        aria-controls="navbarCollapse" 
-                        aria-expanded="false" 
-                        aria-label="Toggle navigation">
+                <button
+                    className="navbar-toggler"
+                    type="button" data-toggle="collapse"
+                    data-target="#navbarCollapse"
+                    aria-controls="navbarCollapse"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
                 </button>
                 <div className="collapse navbar-collapse" id="navbarCollapse">
-                    <ul className="navbar-nav mr-auto">
+                    <ul className="navbar-nav mr-auto mt-1">
                         {routes.map(route => {
                             return (
-                                <li 
+                                <li
                                     className="nav-item"
                                     key={route.name}>
-                                    <NavLink 
-                                        className="nav-link" 
+                                    <NavLink
+                                        className="nav-link"
                                         to={route.path}>
                                         {route.name}
                                     </NavLink>
                                 </li>
                             )
                         })}
-                        {!user ? 
+                        {!user ?
                             <React.Fragment>
                                 <li className="nav-item">
-                                    <NavLink 
-                                        className="nav-link" 
+                                    <NavLink
+                                        className="nav-link"
                                         to='/login'>
                                         Login
                                     </NavLink>
                                 </li>
                                 <li className="nav-item">
-                                    <NavLink 
-                                        className="nav-link" 
+                                    <NavLink
+                                        className="nav-link"
                                         to='/register'>
                                         Register
                                     </NavLink>
                                 </li>
                             </React.Fragment>
-                            : 
+                            :
                             <React.Fragment>
                                 <li className="nav-item">
-                                    <NavLink 
-                                        className="nav-link" 
+                                    <NavLink
+                                        className="nav-link"
                                         to='/profile'>
                                         {user.name}
                                     </NavLink>
-                                    
+
                                 </li>
                                 <li className="nav-item">
-                                    <NavLink 
-                                        className="nav-link" 
+                                    <NavLink
+                                        className="nav-link"
                                         to='/logout'>
                                         Logout
                                     </NavLink>
@@ -73,5 +73,5 @@ const Navbar = ({ routes, user }) => {
         </header>
     );
 }
- 
+
 export default Navbar;
