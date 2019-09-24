@@ -28,7 +28,7 @@ export function getCurrentUser() {
     // if jwt is null stop => anonymous user
     if (!jwt) return null;
 
-    return jwtDecode(jwt);	
+    return jwtDecode(jwt);
 }
 
 export function getJwt() {
@@ -41,4 +41,4 @@ export default {
     loginWithJwt,
     logout,
     getCurrentUser
-}
+};

@@ -12,4 +12,4 @@ function register(user) {
 
 export default {
     register
-}
+};

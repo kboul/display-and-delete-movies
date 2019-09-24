@@ -11,12 +11,16 @@ class LoginForm extends Form {
             password: ''
         },
         errors: {}
-    }
+    };
 
     schema = {
-        username: Joi.string().required().label("Username"),
-        password: Joi.string().required().label("Password")
-    }
+        username: Joi.string()
+            .required()
+            .label('Username'),
+        password: Joi.string()
+            .required()
+            .label('Password')
+    };
 
     doSubmit = async () => {
         try {
@@ -33,7 +37,7 @@ class LoginForm extends Form {
             }
         }
         console.log(this.state.errors);
-    }
+    };
 
     render() {
         if (authService.getCurrentUser()) return <Redirect to="/" />;
@@ -42,9 +46,9 @@ class LoginForm extends Form {
             <div>
                 <h1>Login</h1>
                 <form onSubmit={this.handleSubmit}>
-                    {this.renderInput("username", "Username")}
-                    {this.renderInput("password", "Password")}
-                    {this.renderButton("Login")}
+                    {this.renderInput('username', 'Username')}
+                    {this.renderInput('password', 'Password')}
+                    {this.renderButton('Login')}
                 </form>
             </div>
         );

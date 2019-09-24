@@ -12,7 +12,7 @@ export function getMovie(id) {
 
 export function saveMovie(movie) {
     if (movie._id) {
-        const body = {...movie};
+        const body = { ...movie };
         delete body._id;
         return http.put(`${apiEndpoint}/${movie._id}`, body);
     }

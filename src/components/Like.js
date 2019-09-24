@@ -11,14 +11,13 @@ const Like = ({ like, onClick }) => {
             id="fa"
             className={likeStyle}
             aria-hidden="true"
-            onClick={onClick}>
-        </i>
+            onClick={onClick}></i>
     );
-}
+};
 
 Like.propTypes = {
     like: PropTypes.bool,
     onClick: PropTypes.func.isRequired
-}
+};
 
 export default Like;

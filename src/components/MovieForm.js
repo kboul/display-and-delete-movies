@@ -14,7 +14,7 @@ class MovieForm extends Form {
         },
         genres: [],
         errors: {}
-    }
+    };
 
     async populateGenres() {
         // fetch the genres from the nodeAPI
@@ -26,7 +26,7 @@ class MovieForm extends Form {
         const { match, history } = this.props;
 
         // if url is new return
-        if (history.location.pathname.includes("new")) return;
+        if (history.location.pathname.includes('new')) return;
 
         // extract the movie id to get the specific movie
         const id = match.params.id;
@@ -36,11 +36,10 @@ class MovieForm extends Form {
 
             // if the url is not new populate the form with selected movie data
             this.setState({ data: this.mapToViewModel(movie) });
-        }
-        catch (ex) {
-            // if movie is undefined navigate to not found page 
+        } catch (ex) {
+            // if movie is undefined navigate to not found page
             if (ex.response && ex.response.status === 404)
-                history.replace("/not-found");
+                history.replace('/not-found');
         }
     }
 
@@ -49,7 +48,7 @@ class MovieForm extends Form {
         await this.populateMovie();
     }
 
-    // model has to be redesigned 
+    // model has to be redesigned
     // to fit the nodeDB in case of edit mode
     mapToViewModel(movie) {
         return {
@@ -58,35 +57,46 @@ class MovieForm extends Form {
             genreId: movie.genre._id,
             numberInStock: movie.numberInStock,
             dailyRentalRate: movie.dailyRentalRate
-        }
+        };
     }
 
     schema = {
         _id: Joi.string(),
-        title: Joi.string().required().label("Title"),
-        genreId: Joi.string().required().label("Genre"),
-        numberInStock: Joi.number().integer().min(0).max(100).label("Number In Stock"),
-        dailyRentalRate: Joi.number().min(0).max(10).label("Rate")
-    }
+        title: Joi.string()
+            .required()
+            .label('Title'),
+        genreId: Joi.string()
+            .required()
+            .label('Genre'),
+        numberInStock: Joi.number()
+            .integer()
+            .min(0)
+            .max(100)
+            .label('Number In Stock'),
+        dailyRentalRate: Joi.number()
+            .min(0)
+            .max(10)
+            .label('Rate')
+    };
 
     doSubmit = async () => {
         // Call the server
-        console.log("Movie Form Submitted");
+        console.log('Movie Form Submitted');
         // save the movie using the nodeMovieService
         await saveMovie(this.state.data);
         this.props.history.replace('/movies');
-    }
+    };
 
     render() {
         return (
             <div>
                 <h1>Movie Form</h1>
                 <form onSubmit={this.handleSubmit}>
-                    {this.renderInput("title", "Title")}
-                    {this.renderSelect("genreId", "Genre", this.state.genres)}
-                    {this.renderInput("numberInStock", "Number In Stock")}
-                    {this.renderInput("dailyRentalRate", "Daily Rental Rate")}
-                    {this.renderButton("Save")}
+                    {this.renderInput('title', 'Title')}
+                    {this.renderSelect('genreId', 'Genre', this.state.genres)}
+                    {this.renderInput('numberInStock', 'Number In Stock')}
+                    {this.renderInput('dailyRentalRate', 'Daily Rental Rate')}
+                    {this.renderButton('Save')}
                 </form>
             </div>
         );

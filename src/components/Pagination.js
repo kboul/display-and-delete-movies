@@ -1,8 +1,8 @@
-import React from 'react'
+import React from 'react';
 import _ from 'lodash'; // optimized underscore library
 import PropTypes from 'prop-types';
 
-const anchorStyle = { cursor: 'pointer', boxShadow: 'none' }
+const anchorStyle = { cursor: 'pointer', boxShadow: 'none' };
 
 const Pagination = ({ itemsCount, pageSize, currentPage, onPageChange }) => {
     // calculate required pagination numbers
@@ -19,21 +19,28 @@ const Pagination = ({ itemsCount, pageSize, currentPage, onPageChange }) => {
                     return (
                         <li
                             key={page}
-                            className={(page !== currentPage) ? "page-item" : "page-item active"}>
+                            className={
+                                page !== currentPage
+                                    ? 'page-item'
+                                    : 'page-item active'
+                            }>
                             <a
                                 className="page-link"
                                 style={anchorStyle}
                                 href="/#"
-                                onClick={(event) => { onPageChange(page); event.preventDefault(); }}>
+                                onClick={event => {
+                                    onPageChange(page);
+                                    event.preventDefault();
+                                }}>
                                 {page}
                             </a>
                         </li>
-                    )
+                    );
                 })}
             </ul>
         </nav>
-    )
-}
+    );
+};
 
 Pagination.propTypes = {
     itemsCount: PropTypes.number.isRequired,
