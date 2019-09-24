@@ -130,7 +130,16 @@ export default class Movies extends Component {
     }
 
     render() {
-        const { pageSize, currentPage, genres, filteredGenre, sortColumn, searchQuery } = this.state;
+        const {
+            pageSize,
+            currentPage,
+            genres,
+            filteredGenre,
+            sortColumn,
+            searchQuery
+        } = this.state;
+
+        const { user } = this.props;
 
         const { totalCount, movies } = this.getPagedData();
 
@@ -145,9 +154,9 @@ export default class Movies extends Component {
                             onFilterGenre={this.handleFilterGenre} />
                     </div>
                     <div className="col-9">
-                        {this.props.user &&
+                        {user &&
                             <button
-                                className="btn btn-primary my-3"
+                                className="btn btn-primary mb-3"
                                 onClick={this.handleCreateMovie}>
                                 New Movie
                         </button>}
@@ -155,16 +164,13 @@ export default class Movies extends Component {
                         <Search
                             value={searchQuery}
                             onSearchMovie={this.handleSearchMovie} />
-                        {
-                            this.state.movies.length === 0
-                                ? null
-                                : <MoviesTable
-                                    movies={movies}
-                                    sortColumn={sortColumn}
-                                    onLikeMovie={this.handleLike}
-                                    onDeleteMovie={this.handleDeleteMovie}
-                                    onSortMovie={this.handleSortMovie} />
-                        }
+                        {this.state.movies.length !== 0 &&
+                            <MoviesTable
+                                movies={movies}
+                                sortColumn={sortColumn}
+                                onLikeMovie={this.handleLike}
+                                onDeleteMovie={this.handleDeleteMovie}
+                                onSortMovie={this.handleSortMovie} />}
                         <Pagination
                             itemsCount={totalCount}
                             pageSize={pageSize}
