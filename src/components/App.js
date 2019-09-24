@@ -12,7 +12,7 @@ import RegisterForm from './RegisterForm';
 import Logout from './Logout';
 import ProtectedRoute from './common/ProtectedRoute';
 import Profile from './Profile';
-import authService from '../services/authService';
+import { getCurrentUser } from '../services/authService';
 import 'react-toastify/dist/ReactToastify.css';
 
 class App extends Component {
@@ -25,7 +25,7 @@ class App extends Component {
     };
 
     componentDidMount = () => {
-        const user = authService.getCurrentUser();
+        const user = getCurrentUser();
         this.setState({ user });
     };
 

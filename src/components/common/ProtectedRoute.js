@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
-import authService from '../../services/authService';
+import { getCurrentUser } from '../../services/authService';
 
 const ProtectedRoute = ({ path, component: Component, render, ...rest }) => {
     return (
@@ -8,16 +8,18 @@ const ProtectedRoute = ({ path, component: Component, render, ...rest }) => {
             {...rest}
             render={props => {
                 console.log(props);
-                if (!authService.getCurrentUser())
+                if (!getCurrentUser())
                     return (
                         <Redirect
                             to={{
                                 pathname: '/login',
                                 state: { from: props.location }
-                            }} />
+                            }}
+                        />
                     );
                 return Component ? <Component {...props} /> : render(props);
-            }} />
+            }}
+        />
     );
 };
 

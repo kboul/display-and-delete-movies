@@ -2,7 +2,7 @@ import React from 'react';
 import Joi from 'joi-browser';
 import { Redirect } from 'react-router-dom';
 import Form from './common/Form';
-import authService from '../services/authService';
+import { login, getCurrentUser } from '../services/authService';
 
 class LoginForm extends Form {
     state = {
@@ -25,7 +25,7 @@ class LoginForm extends Form {
     doSubmit = async () => {
         try {
             const { data } = this.state;
-            await authService.login(data.username, data.password);
+            await login(data.username, data.password);
 
             const { state } = this.props.location;
             window.location = state ? state.from.pathname : '/';
@@ -40,7 +40,7 @@ class LoginForm extends Form {
     };
 
     render() {
-        if (authService.getCurrentUser()) return <Redirect to="/" />;
+        if (getCurrentUser()) return <Redirect to="/" />;
 
         return (
             <div>
