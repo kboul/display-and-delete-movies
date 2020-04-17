@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 import Movies from './Movies';
 import Navbar from './Navbar';
 import Customers from './Customers';
@@ -13,15 +15,14 @@ import Logout from './Logout';
 import ProtectedRoute from './common/ProtectedRoute';
 import Profile from './Profile';
 import { getCurrentUser } from '../services/authService';
-import 'react-toastify/dist/ReactToastify.css';
 
-class App extends Component {
+export default class App extends Component {
     state = {
         routes: [
             { path: '/movies', name: 'Movies' },
             { path: '/customers', name: 'Customers' },
-            { path: '/rentals', name: 'Rentals' }
-        ]
+            { path: '/rentals', name: 'Rentals' },
+        ],
     };
 
     componentDidMount = () => {
@@ -47,7 +48,7 @@ class App extends Component {
                         <ProtectedRoute path="/profile" component={Profile} />
                         <Route
                             path="/movies"
-                            render={props => (
+                            render={(props) => (
                                 <Movies {...props} user={user} />
                             )}></Route>
                         <Route path="/customers" component={Customers} />
@@ -61,5 +62,3 @@ class App extends Component {
         );
     }
 }
-
-export default App;

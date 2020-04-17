@@ -1,22 +1,21 @@
 import React from 'react';
+
 import '../styles/ListGroup.css';
 
-const ListGroup = ({
+export default function ListGroup({
     genres,
     valueProperty,
     textProperty,
     onFilterGenre,
     filteredGenre,
-    searchQuery
-}) => {
+    searchQuery,
+}) {
     return (
         <ul className="list-group">
-            {genres.map(genre => {
+            {genres.map((genre) => {
                 return (
                     <li
-                        key={
-                            genre[valueProperty] ? genre[valueProperty] : 'all'
-                        }
+                        key={genre[valueProperty] || 'all'}
                         className={
                             filteredGenre.name === genre[textProperty] &&
                             searchQuery.length === 0
@@ -32,11 +31,9 @@ const ListGroup = ({
             })}
         </ul>
     );
-};
+}
 
 ListGroup.defaultProps = {
     valueProperty: '_id',
-    textProperty: 'name'
+    textProperty: 'name',
 };
-
-export default ListGroup;

@@ -4,22 +4,18 @@ import { Redirect } from 'react-router-dom';
 import Form from './common/Form';
 import { login, getCurrentUser } from '../services/authService';
 
-class LoginForm extends Form {
+export default class LoginForm extends Form {
     state = {
         data: {
             username: '',
-            password: ''
+            password: '',
         },
-        errors: {}
+        errors: {},
     };
 
     schema = {
-        username: Joi.string()
-            .required()
-            .label('Username'),
-        password: Joi.string()
-            .required()
-            .label('Password')
+        username: Joi.string().required().label('Username'),
+        password: Joi.string().required().label('Password'),
     };
 
     doSubmit = async () => {
@@ -54,5 +50,3 @@ class LoginForm extends Form {
         );
     }
 }
-
-export default LoginForm;
